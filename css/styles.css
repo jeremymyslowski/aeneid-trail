@@ -1,0 +1,450 @@
+/* Aeneid Trail — Phase 3 Styles
+   Clean, readable, slightly classical. Improved status feedback,
+   progress indicator, accessibility, and responsive layout.
+*/
+
+:root {
+  --bg: #1a1612;
+  --bg-panel: #241f19;
+  --text: #e8e0d5;
+  --text-muted: #a89f91;
+  --accent: #c9a227;
+  --accent-dim: #8a7020;
+  --danger: #c45c5c;
+  --warn: #c9a04a;
+  --border: #3d342a;
+  --alive: #7a9e6a;
+  --dead: #8a5a5a;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --focus-ring: 0 0 0 3px rgba(201, 162, 39, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Focus visibility for keyboard / a11y */
+button:focus-visible,
+.choice-btn:focus-visible,
+#scene-text:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- Screens ---------- */
+
+.screen {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  max-width: 920px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 0.9rem;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ---------- Title ---------- */
+
+#title-screen {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+#title-screen h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 6vw, 2.9rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+#title-screen .subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 28rem;
+}
+
+#title-screen .phase-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-dim);
+  border: 1px solid var(--accent-dim);
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  padding: 0.75rem 1.4rem;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+  min-height: 44px;
+}
+
+button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+button.secondary {
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+button.secondary:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ---------- Game header ---------- */
+
+header.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.45rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+header.game-header h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+#travel-info {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Progress ---------- */
+
+.progress-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.6rem 0.9rem 0.75rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+
+#chapter-label {
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+}
+
+.chapter-progress {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.chapter-dot {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.chapter-dot.done {
+  background: var(--accent-dim);
+  border-color: var(--accent-dim);
+  color: var(--bg);
+}
+
+.chapter-dot.current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.25);
+}
+
+.chapter-dot .num {
+  line-height: 1;
+}
+
+/* ---------- Status ---------- */
+
+.status-panel {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 0.65rem 0.75rem;
+  border-radius: 3px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.stat .value {
+  font-size: 1.3rem;
+  font-family: var(--font-serif);
+  color: var(--text);
+}
+
+.stat .value.stat-warn {
+  color: var(--warn);
+}
+
+.stat .value.stat-danger {
+  color: var(--danger);
+}
+
+/* ---------- Scene ---------- */
+
+.scene-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 1.15rem 1.35rem;
+  border-radius: 3px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 12rem;
+}
+
+#scene-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+#scene-text {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  color: var(--text);
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.25rem;
+}
+
+.choice-btn {
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  border-color: var(--border);
+  color: var(--text);
+  background: transparent;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  min-height: 48px;
+  border-radius: 2px;
+}
+
+.choice-btn:hover {
+  border-color: var(--accent);
+  background: rgba(201, 162, 39, 0.08);
+  color: var(--text);
+}
+
+#end-note {
+  margin-top: 0.35rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px dashed var(--accent-dim);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* ---------- Info panels ---------- */
+
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.info-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 0.7rem 0.9rem;
+  border-radius: 3px;
+  font-size: 0.88rem;
+}
+
+.info-panel h3 {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+  font-weight: 400;
+}
+
+#companion-list {
+  list-style: none;
+}
+
+#companion-list li {
+  padding: 0.12rem 0;
+}
+
+#companion-list li.alive {
+  color: var(--alive);
+}
+
+#companion-list li.dead {
+  color: var(--dead);
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+#flags-display {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+.log-panel {
+  margin-top: 0;
+}
+
+#event-log {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-height: 7.5rem;
+  overflow-y: auto;
+  line-height: 1.45;
+}
+
+.log-line {
+  padding: 0.12rem 0;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  text-align: center;
+  padding: 0.85rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .screen {
+    padding: 1rem;
+  }
+
+  .status-panel {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+  }
+
+  #scene-text {
+    max-height: 14rem;
+    font-size: 0.98rem;
+  }
+
+  .chapter-dot {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.65rem;
+  }
+
+  header.game-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .status-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  button,
+  .choice-btn {
+    transition: none;
+  }
+}
