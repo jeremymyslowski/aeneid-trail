@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Aeneid Trail — an Oregon Trail-style journey through Virgil’s Aeneid. Play as Aeneas from the fall of Troy to the founding of Rome." />
+  <title>Aeneid Trail</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Title Screen -->
+  <div id="title-screen" class="screen active" role="main" aria-label="Title screen">
+    <div class="phase-tag">Release 1.0</div>
+    <h1>Aeneid Trail</h1>
+    <p class="subtitle">
+      An Oregon Trail–style journey through Virgil’s <em>Aeneid</em>.<br />
+      You are Aeneas. From the fall of Troy to the founding of a people.
+    </p>
+    <div class="btn-row">
+      <button id="btn-new" type="button">Begin the Fall of Troy</button>
+      <button id="btn-continue" type="button" class="secondary" style="display:none">Continue Journey</button>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="screen" role="main" aria-label="Game">
+    <header class="game-header">
+      <h2>Aeneid Trail</h2>
+      <div id="travel-info" aria-live="polite">Chapter 1 · troy-burning · Day 0</div>
+    </header>
+
+    <!-- Journey progress -->
+    <div class="progress-panel" aria-label="Journey progress">
+      <div class="progress-label">
+        <span>Journey</span>
+        <span id="chapter-label">Fall of Troy</span>
+      </div>
+      <div id="chapter-progress" class="chapter-progress" role="list" aria-label="Chapters 1 through 10"></div>
+    </div>
+
+    <!-- Core resources -->
+    <div class="status-panel" role="region" aria-label="Resources">
+      <div class="stat">
+        <div class="label">Men</div>
+        <div class="value" id="stat-men" aria-live="polite">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Ships</div>
+        <div class="value" id="stat-ships" aria-live="polite">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Supplies</div>
+        <div class="value" id="stat-supplies" aria-live="polite">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Morale</div>
+        <div class="value" id="stat-morale" aria-live="polite">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Piety</div>
+        <div class="value" id="stat-piety" aria-live="polite">—</div>
+      </div>
+    </div>
+
+    <!-- Main scene -->
+    <div class="scene-panel" role="region" aria-label="Current event">
+      <h3 id="scene-title">Title</h3>
+      <div id="scene-text" tabindex="0">Text goes here.</div>
+      <div id="choices" role="group" aria-label="Choices"></div>
+      <div id="end-note" style="display:none">
+        Your choices shaped this ending. Replay to discover other fates.
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-panel">
+        <h3>Companions</h3>
+        <ul id="companion-list" aria-label="Companions"></ul>
+      </div>
+      <div class="info-panel">
+        <h3>Flags</h3>
+        <div id="flags-display" aria-live="polite">—</div>
+      </div>
+    </div>
+
+    <div class="info-panel log-panel">
+      <h3>Recent Events</h3>
+      <div id="event-log" aria-live="polite" aria-relevant="additions"></div>
+    </div>
+  </div>
+
+  <footer>
+    Aeneid Trail · Release 1.0 · Faithful to Virgil · Client-side only
+  </footer>
+
+  <script src="data/content.js"></script>
+  <script src="js/game.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      window.AeneidTrail.init();
+    });
+  </script>
+</body>
+</html>
