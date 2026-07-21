@@ -133,13 +133,15 @@
         text: "No men remain. The journey ends here, far from the promised land. The household gods have no one left to carry them."
       };
     }
-    if (state.ships <= 0 && state.travel.currentChapter < 8) {
+    // Ships and supplies only matter once the fleet has been assembled at Troy.
+    // Before that (Fall of Troy sequence) ships start at 0 by design.
+    if (state.flags.fleetAssembled && state.ships <= 0 && state.travel.currentChapter < 8) {
       return {
         title: "The Fleet Is Lost",
         text: "Without ships the sea cannot be crossed. You are stranded, and the destiny spoken by the gods remains unfulfilled."
       };
     }
-    if (state.supplies <= 0 && state.travel.currentChapter < 8) {
+    if (state.flags.fleetAssembled && state.supplies <= 0 && state.travel.currentChapter < 8) {
       return {
         title: "Starvation",
         text: "The last of the provisions are gone. Hunger does what the Greeks and the storms could not. The journey ends in emptiness."
